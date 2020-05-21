@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h3 Search box
+  input#search(type="text", name="search", onkeyup="ChangeSearch()")
+  button.btn.btn-primary(onclick="Search()") Search
+  h3 Closest matches
+  ol
+    li#num1 number 1
+    li#num2 number 2
+    li#num3 number 3
+    li#num4 number 4
+    li#num5 number 5
+  h3 Output
+  #output
+  h3 RAW data
+  pre= JSON.stringify(countries, null, 2)
+  
+  script(src="/javascripts/search.js")
