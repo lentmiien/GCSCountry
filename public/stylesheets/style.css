@@ -9,3 +9,46 @@ pre {
   padding: 10px;
   border-radius: 25px;
 }
+
+.unavailable {
+  color: rgb(173, 173, 173);
+  background-color: rgba(173, 173, 173, 0.2);
+  border: 1px solid rgb(173, 173, 173);
+  border-radius: 5px;
+  padding: 2px;
+}
+.available {
+  color: rgb(73, 173, 73);
+  background-color: rgba(73, 173, 73, 0.2);
+  border: 1px solid rgb(73, 173, 73);
+  border-radius: 5px;
+  padding: 2px;
+}
+.suspended {
+  color: rgb(173, 73, 73);
+  background-color: rgba(173, 73, 73, 0.2);
+  border: 1px solid rgb(173, 73, 73);
+  border-radius: 5px;
+  padding: 2px;
+}
+.delays {
+  color: rgb(173, 173, 73);
+  background-color: rgba(173, 173, 73, 0.2);
+  border: 1px solid rgb(173, 173, 73);
+  border-radius: 5px;
+  padding: 2px;
+}
+.unknown {
+  color: rgb(173, 73, 173);
+  background-color: rgba(173, 73, 173, 0.2);
+  border: 1px solid rgb(173, 73, 173);
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.fast {
+  color: green;
+}
+.slow {
+  color: red;
+}

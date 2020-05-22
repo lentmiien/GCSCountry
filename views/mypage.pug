@@ -2,15 +2,14 @@ extends layout
 
 block content
   h3 Search box
-  input#search(type="text", name="search", onkeyup="ChangeSearch()")
-  button.btn.btn-primary(onclick="Search()") Search
-  h3 Closest matches
-  ol
-    li#num1 number 1
-    li#num2 number 2
-    li#num3 number 3
-    li#num4 number 4
-    li#num5 number 5
+  input#search.form-control(type="text", name="search", onkeyup="ChangeSearch()")
+  div#auto
+  div#num1
+  div#num2
+  div#num3
+  div#num4
+  div#num5
+  hr
   h3 Output
   #output
   h3 RAW data
