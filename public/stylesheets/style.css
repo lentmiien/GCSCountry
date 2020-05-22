@@ -10,6 +10,13 @@ pre {
   border-radius: 25px;
 }
 
+.hidden {
+  display: none;
+}
+
+.type0 {
+  background-color: rgb(173, 173, 173);
+}
 .unavailable {
   color: rgb(173, 173, 173);
   background-color: rgba(173, 173, 173, 0.2);
@@ -17,12 +24,20 @@ pre {
   border-radius: 5px;
   padding: 2px;
 }
+
+.type1 {
+  background-color: rgb(73, 173, 73);
+}
 .available {
   color: rgb(73, 173, 73);
   background-color: rgba(73, 173, 73, 0.2);
   border: 1px solid rgb(73, 173, 73);
   border-radius: 5px;
   padding: 2px;
+}
+
+.type2 {
+  background-color: rgb(173, 73, 73);
 }
 .suspended {
   color: rgb(173, 73, 73);
@@ -35,6 +50,17 @@ pre {
   color: rgb(173, 173, 73);
   background-color: rgba(173, 173, 73, 0.2);
   border: 1px solid rgb(173, 173, 73);
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.type3 {
+  background-color: rgb(73, 73, 173);
+}
+.blocked {
+  color: rgb(145, 145, 236);
+  background-color: rgba(73, 73, 173, 0.2);
+  border: 1px solid rgb(73, 73, 173);
   border-radius: 5px;
   padding: 2px;
 }

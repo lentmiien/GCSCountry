@@ -4,15 +4,9 @@ block content
   h3 Search box
   input#search.form-control(type="text", name="search", onkeyup="ChangeSearch()")
   div#auto
-  div#num1
-  div#num2
-  div#num3
-  div#num4
-  div#num5
   hr
-  h3 Output
-  #output
-  h3 RAW data
-  pre= JSON.stringify(countries, null, 2)
+  .card.text-white.bg-dark
+    #output.card-body
+  pre.hidden= JSON.stringify(countries, null, 2)
   
   script(src="/javascripts/search.js")

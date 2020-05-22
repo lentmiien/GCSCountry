@@ -16,6 +16,8 @@ function Available(num, current_avg, overall_avg) {
         }
     } else if (num == 2) {
         return { text: "Suspended", class: "suspended", title: "This shipping method is temporarilly unavailable,\nand previously shipped packages may be largely delayed." };
+    } else if (num == 3) {
+        return { text: "Blocked", class: "blocked", title: "Permanently suspended, unlikely to become available again within any forseeable future.\n*Customers can NOT select this shipping method." };
     } else {
         return { text: `Unknown(${num})`, class: "unknown", title: "Unknown status, contact Lennart!" };
     }
@@ -80,8 +82,8 @@ function ChangeSearch() {
                             <thead>
                                 <tr>
                                     <th span="col"></th>
-                                    <th span="col">Status</th>
-                                    <th span="col">Average last 2 weeks<br>(compared to overall average)</th>
+                                    <th span="col" title="Available, delay and Suspended can be selected by customers.\nFor Suspended, the order will be shipped when the shipping method becomes available again.">Status*</th>
+                                    <th span="col">Average last 2 weeks<br>(compared to all time average)</th>
                                     <th span="col" title="Shipped and delivered">Last successfully<br>shipped*</th>
                                     <th span="col">Last successfully<br>delivered</th>
                                 </tr>

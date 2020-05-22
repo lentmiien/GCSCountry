@@ -11,5 +11,8 @@ var controller = require('../controllers/mypageController');
 
 router.get('/', controller.mypage);
 
+router.get('/update', controller.update_page);
+router.post('/update', controller.update_value);
+
 // Export router
 module.exports = router;
