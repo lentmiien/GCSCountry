@@ -1,7 +1,6 @@
 // Require used packages
 
 // Require necessary database models
-const temp_db = require('../input_data.json');
 const { Country, Countrylist, Tracking, Op } = require('../sequelize');
 
 //---------------------------------------------//
@@ -20,12 +19,143 @@ exports.update_page = (req, res) => {
   });
 };
 exports.update_value = (req, res) => {
-  let status = 'FAILED';
-  for (let i = 0; i < temp_db.length; i++) {
-    if (temp_db[i].code == req.body.code) {
-      temp_db[i][req.body.method].available = req.body.status;
-      status = 'OK';
+  let update_data = {};
+  update_data[`${req.body.method}_available`] = req.body.status;
+  Country.update(update_data, { where: { country_code: req.body.country_code } })
+    .then(() => {
+      res.json({ status: 'OK' });
+    })
+    .catch(() => {
+      res.json({ status: 'FAILED' });
+    });
+};
+
+// Calculate average shipping times
+exports.recalculate = async (req, res) => {
+  const countries = await Country.findAll();
+  const countrylist = await Countrylist.findAll();
+  const trackings = await Tracking.findAll();
+
+  // Create country code lookup table
+  cc_lookup = {};
+  countrylist.forEach((ce) => {
+    cc_lookup[ce.country_name] = ce.country_code;
+  });
+
+  // Last 2 weeks
+  const l2w = Date.now() - 1000 * 60 * 60 * 24 * 14;
+
+  // Calculate averages
+  const unknown_countries = [];
+  const averages = {};
+  trackings.forEach((t) => {
+    if (cc_lookup[t.country]) {
+      const cc = cc_lookup[t.country];
+      if (t.delivereddate > t.shippeddate) {
+        // Create entry if not existing
+        if (!averages[cc]) {
+          averages[cc] = {
+            ems_2week_days: 0,
+            ems_2week_cnt: 0,
+            ems_days: 0,
+            ems_cnt: 0,
+            ems_shippeddate: 0,
+            airsp_2week_days: 0,
+            airsp_2week_cnt: 0,
+            airsp_days: 0,
+            airsp_cnt: 0,
+            airsp_shippeddate: 0,
+            salspr_2week_days: 0,
+            salspr_2week_cnt: 0,
+            salspr_days: 0,
+            salspr_cnt: 0,
+            salspr_shippeddate: 0,
+            salspu_2week_days: 0,
+            salspu_2week_cnt: 0,
+            salspu_days: 0,
+            salspu_cnt: 0,
+            salspu_shippeddate: 0,
+            salp_2week_days: 0,
+            salp_2week_cnt: 0,
+            salp_days: 0,
+            salp_cnt: 0,
+            salp_shippeddate: 0,
+            dhl_2week_days: 0,
+            dhl_2week_cnt: 0,
+            dhl_days: 0,
+            dhl_cnt: 0,
+            dhl_shippeddate: 0,
+            airp_2week_days: 0,
+            airp_2week_cnt: 0,
+            airp_days: 0,
+            airp_cnt: 0,
+            airp_shippeddate: 0,
+          };
+        }
+
+        // Add data (TODO: change to use "method" when implemented)
+        if (t.carrier == 'DHL') {
+          if (t.delivereddate > l2w) {
+            averages[cc].dhl_2week_cnt++;
+            averages[cc].dhl_2week_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+          }
+          averages[cc].dhl_cnt++;
+          averages[cc].dhl_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+
+          if (t.shippeddate > averages[cc].dhl_shippeddate) {
+            averages[cc].dhl_shippeddate = t.shippeddate;
+          }
+        } else if (t.tracking.indexOf('EM') == 0) {
+          if (t.delivereddate > l2w) {
+            averages[cc].ems_2week_cnt++;
+            averages[cc].ems_2week_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+          }
+          averages[cc].ems_cnt++;
+          averages[cc].ems_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+
+          if (t.shippeddate > averages[cc].ems_shippeddate) {
+            averages[cc].ems_shippeddate = t.shippeddate;
+          }
+        }
+      }
+    } else {
+      unknown_countries.push(t.country);
     }
+  });
+
+  // Update database
+  for (let key of Object.keys(averages)) {
+    const update_values = {
+      ems_averagetime: averages[key].ems_2week_days / (averages[key].ems_2week_cnt > 0 ? averages[key].ems_2week_cnt : 1),
+      ems_totalaveragetime: averages[key].ems_days / (averages[key].ems_cnt > 0 ? averages[key].ems_cnt : 1),
+      ems_lastsucessfullyshipped: averages[key].ems_shippeddate,
+
+      airsp_averagetime: averages[key].airsp_2week_days / (averages[key].airsp_2week_cnt > 0 ? averages[key].airsp_2week_cnt : 1),
+      airsp_totalaveragetime: averages[key].airsp_days / (averages[key].airsp_cnt > 0 ? averages[key].airsp_cnt : 1),
+      airsp_lastsucessfullyshipped: averages[key].airsp_shippeddate,
+
+      salspr_averagetime: averages[key].salspr_2week_days / (averages[key].salspr_2week_cnt > 0 ? averages[key].salspr_2week_cnt : 1),
+      salspr_totalaveragetime: averages[key].salspr_days / (averages[key].salspr_cnt > 0 ? averages[key].salspr_cnt : 1),
+      salspr_lastsucessfullyshipped: averages[key].salspr_shippeddate,
+
+      salspu_averagetime: averages[key].salspu_2week_days / (averages[key].salspu_2week_cnt > 0 ? averages[key].salspu_2week_cnt : 1),
+      salspu_totalaveragetime: averages[key].salspu_days / (averages[key].salspu_cnt > 0 ? averages[key].salspu_cnt : 1),
+      salspu_lastsucessfullyshipped: averages[key].salspu_shippeddate,
+
+      salp_averagetime: averages[key].salp_2week_days / (averages[key].salp_2week_cnt > 0 ? averages[key].salp_2week_cnt : 1),
+      salp_totalaveragetime: averages[key].salp_days / (averages[key].salp_cnt > 0 ? averages[key].salp_cnt : 1),
+      salp_lastsucessfullyshipped: averages[key].salp_shippeddate,
+
+      dhl_averagetime: averages[key].dhl_2week_days / (averages[key].dhl_2week_cnt > 0 ? averages[key].dhl_2week_cnt : 1),
+      dhl_totalaveragetime: averages[key].dhl_days / (averages[key].dhl_cnt > 0 ? averages[key].dhl_cnt : 1),
+      dhl_lastsucessfullyshipped: averages[key].dhl_shippeddate,
+
+      airp_averagetime: averages[key].airp_2week_days / (averages[key].airp_2week_cnt > 0 ? averages[key].airp_2week_cnt : 1),
+      airp_totalaveragetime: averages[key].airp_days / (averages[key].airp_cnt > 0 ? averages[key].airp_cnt : 1),
+      airp_lastsucessfullyshipped: averages[key].airp_shippeddate,
+    };
+    Country.update(update_values, { where: { country_code: key } });
   }
-  res.json({ status });
+
+  res.render('status', { unknown_countries });
 };

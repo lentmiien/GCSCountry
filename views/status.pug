@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h3 Unknown country names
+  table.table.table-dark.table-striped
+    thead
+      tr
+        th(span="col") Name
+    tbody
+      each country in unknown_countries
+        tr
+          td= country

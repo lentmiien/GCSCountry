@@ -12,7 +12,7 @@ function StatusColor(status) {
   }
 }
 
-async function Update(element, code, method) {
+async function Update(element, country_code, method) {
   const status = element.value;
   element.style.backgroundColor = 'yellow';
   fetch('/mypage/update', {

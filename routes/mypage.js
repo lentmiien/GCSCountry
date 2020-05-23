@@ -14,5 +14,7 @@ router.get('/', controller.mypage);
 router.get('/update', controller.update_page);
 router.post('/update', controller.update_value);
 
+router.get('/recalculate', controller.recalculate);
+
 // Export router
 module.exports = router;
