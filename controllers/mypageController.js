@@ -47,8 +47,9 @@ exports.update_value = (req, res) => {
 
 // Calculate average shipping times
 exports.recalculate = async (req, res) => {
-  const countries = await Country.findAll();
+  //const countries = await Country.findAll();
   const countrylist = await Countrylist.findAll();
+  const countrylist_base = countrylist.filter((a) => a.baseentry);
   const trackings = await Tracking.findAll();
 
   // Create country code lookup table
@@ -172,5 +173,15 @@ exports.recalculate = async (req, res) => {
     Country.update(update_values, { where: { country_code: key } });
   }
 
-  res.render('status', { unknown_countries });
+  res.render('status', { unknown_countries, countrylist_base });
+};
+
+exports.addcl = (req, res) => {
+  let add_data = {
+    country_name: req.body.country_name,
+    country_code: req.body.country_code,
+    baseentry: false,
+  };
+  Countrylist.create(add_data);
+  res.json({ status: 'OK' });
 };

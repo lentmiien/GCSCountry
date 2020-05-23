@@ -16,5 +16,7 @@ router.post('/update', controller.update_value);
 
 router.get('/recalculate', controller.recalculate);
 
+router.post('/addcl', controller.addcl);
+
 // Export router
 module.exports = router;
