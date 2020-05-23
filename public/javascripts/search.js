@@ -1,4 +1,5 @@
 const database = JSON.parse(document.getElementsByTagName('pre')[0].innerText);
+const database_tracking = JSON.parse(document.getElementsByTagName('pre')[1].innerText);
 
 function FillIn(text) {
   document.getElementById('search').value = text;
@@ -45,6 +46,13 @@ function Available(num, current_avg, overall_avg) {
 function ChangeSearch() {
   let search = document.getElementById('search').value.toUpperCase();
   const output = [];
+
+  // Do a tracking lookup
+  database_tracking.forEach((dt) => {
+    if (dt.tracking == search) {
+      search = dt.country;
+    }
+  });
 
   // Get selected index
   let index = -1;

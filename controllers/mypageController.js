@@ -8,8 +8,23 @@ const { Country, Countrylist, Tracking, Op } = require('../sequelize');
 //---------------------------------------------//
 
 exports.mypage = (req, res, next) => {
-  Country.findAll().then((results) => {
-    res.render('mypage', { countries: results });
+  Country.findAll().then((countries) => {
+    Tracking.findAll({ attributes: ['tracking', 'country'] }).then((trackings) => {
+      Countrylist.findAll().then((countrylist) => {
+        // Create country code lookup table
+        cc_lookup = {};
+        countrylist.forEach((ce) => {
+          cc_lookup[ce.country_name] = ce.country_code;
+        });
+
+        // Replace country with country code
+        for (let i = 0; i < trackings.length; i++) {
+          trackings[i].country = cc_lookup[trackings[i].country];
+        }
+
+        res.render('mypage', { countries, trackings });
+      });
+    });
   });
 };
 
