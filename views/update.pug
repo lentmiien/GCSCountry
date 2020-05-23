@@ -17,130 +17,130 @@ block content
       tbody
         each c in countries
           tr
-            td= c.name
+            td= c.country_name
             td
-              select(class=`type${c.ems.available}` onchange=`Update(this,"${c.code}","ems")`, title="EMS")
-                if c.ems.available == 0
+              select(class=`type${c.ems_available}` onchange=`Update(this,"${c.country_code}","ems")`, title="EMS")
+                if c.ems_available == 0
                   option(value="0", selected) Unavailable
                 else
                   option(value="0") Unavailable
-                if c.ems.available == 1
+                if c.ems_available == 1
                   option(value="1", selected) Available
                 else
                   option(value="1") Available
-                if c.ems.available == 2
+                if c.ems_available == 2
                   option(value="2", selected) Suspended
                 else
                   option(value="2") Suspended
-                if c.ems.available == 3
+                if c.ems_available == 3
                   option(value="3", selected) Blocked
                 else
                   option(value="3") Blocked
             td
-              select(class=`type${c.airsp.available}` onchange=`Update(this,"${c.code}","airsp")`, title="ASP")
-                if c.airsp.available == 0
+              select(class=`type${c.airsp_available}` onchange=`Update(this,"${c.country_code}","airsp")`, title="ASP")
+                if c.airsp_available == 0
                   option(value="0", selected) Unavailable
                 else
                   option(value="0") Unavailable
-                if c.airsp.available == 1
+                if c.airsp_available == 1
                   option(value="1", selected) Available
                 else
                   option(value="1") Available
-                if c.airsp.available == 2
+                if c.airsp_available == 2
                   option(value="2", selected) Suspended
                 else
                   option(value="2") Suspended
-                if c.airsp.available == 3
+                if c.airsp_available == 3
                   option(value="3", selected) Blocked
                 else
                   option(value="3") Blocked
             td
-              select(class=`type${c.salspr.available}` onchange=`Update(this,"${c.code}","salspr")`, title="SAL Reg.")
-                if c.salspr.available == 0
+              select(class=`type${c.salspr_available}` onchange=`Update(this,"${c.country_code}","salspr")`, title="SAL Reg.")
+                if c.salspr_available == 0
                   option(value="0", selected) Unavailable
                 else
                   option(value="0") Unavailable
-                if c.salspr.available == 1
+                if c.salspr_available == 1
                   option(value="1", selected) Available
                 else
                   option(value="1") Available
-                if c.salspr.available == 2
+                if c.salspr_available == 2
                   option(value="2", selected) Suspended
                 else
                   option(value="2") Suspended
-                if c.salspr.available == 3
+                if c.salspr_available == 3
                   option(value="3", selected) Blocked
                 else
                   option(value="3") Blocked
             td
-              select(class=`type${c.salspu.available}` onchange=`Update(this,"${c.code}","salspu")`, title="SAL Unreg.")
-                if c.salspu.available == 0
+              select(class=`type${c.salspu_available}` onchange=`Update(this,"${c.country_code}","salspu")`, title="SAL Unreg.")
+                if c.salspu_available == 0
                   option(value="0", selected) Unavailable
                 else
                   option(value="0") Unavailable
-                if c.salspu.available == 1
+                if c.salspu_available == 1
                   option(value="1", selected) Available
                 else
                   option(value="1") Available
-                if c.salspu.available == 2
+                if c.salspu_available == 2
                   option(value="2", selected) Suspended
                 else
                   option(value="2") Suspended
-                if c.salspu.available == 3
+                if c.salspu_available == 3
                   option(value="3", selected) Blocked
                 else
                   option(value="3") Blocked
             td
-              select(class=`type${c.salp.available}` onchange=`Update(this,"${c.code}","salp")`, title="SAL Parcel")
-                if c.salp.available == 0
+              select(class=`type${c.salp_available}` onchange=`Update(this,"${c.country_code}","salp")`, title="SAL Parcel")
+                if c.salp_available == 0
                   option(value="0", selected) Unavailable
                 else
                   option(value="0") Unavailable
-                if c.salp.available == 1
+                if c.salp_available == 1
                   option(value="1", selected) Available
                 else
                   option(value="1") Available
-                if c.salp.available == 2
+                if c.salp_available == 2
                   option(value="2", selected) Suspended
                 else
                   option(value="2") Suspended
-                if c.salp.available == 3
+                if c.salp_available == 3
                   option(value="3", selected) Blocked
                 else
                   option(value="3") Blocked
             td
-              select(class=`type${c.dhl.available}` onchange=`Update(this,"${c.code}","dhl")`, title="DHL")
-                if c.dhl.available == 0
+              select(class=`type${c.dhl_available}` onchange=`Update(this,"${c.country_code}","dhl")`, title="DHL")
+                if c.dhl_available == 0
                   option(value="0", selected) Unavailable
                 else
                   option(value="0") Unavailable
-                if c.dhl.available == 1
+                if c.dhl_available == 1
                   option(value="1", selected) Available
                 else
                   option(value="1") Available
-                if c.dhl.available == 2
+                if c.dhl_available == 2
                   option(value="2", selected) Suspended
                 else
                   option(value="2") Suspended
-                if c.dhl.available == 3
+                if c.dhl_available == 3
                   option(value="3", selected) Blocked
                 else
                   option(value="3") Blocked
             td
-              select(class=`type${c.airp.available}` onchange=`Update(this,"${c.code}","airp")`, title="Air Parcel")
-                if c.airp.available == 0
+              select(class=`type${c.airp_available}` onchange=`Update(this,"${c.country_code}","airp")`, title="Air Parcel")
+                if c.airp_available == 0
                   option(value="0", selected) Unavailable
                 else
                   option(value="0") Unavailable
-                if c.airp.available == 1
+                if c.airp_available == 1
                   option(value="1", selected) Available
                 else
                   option(value="1") Available
-                if c.airp.available == 2
+                if c.airp_available == 2
                   option(value="2", selected) Suspended
                 else
                   option(value="2") Suspended
-                if c.airp.available == 3
+                if c.airp_available == 3
                   option(value="3", selected) Blocked
                 else
                   option(value="3") Blocked

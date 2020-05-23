@@ -13,7 +13,5 @@ router.all('*', controller.checkall);
 
 router.get('/', controller.index);
 
-router.post('/post', controller.post);
-
 // Export router
 module.exports = router;

@@ -15,10 +15,3 @@ exports.checkall = (req, res, next) => {
 exports.index = (req, res, next) => {
   res.render('index', {});
 };
-
-exports.post = (req, res) => {
-  fs.writeFile('./input_data.json', JSON.stringify(req.body), 'utf8', err => {
-    console.log(err);
-  });
-  res.redirect('/');
-};
