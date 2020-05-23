@@ -138,7 +138,6 @@ exports.recalculate = async (req, res) => {
     }
   });
 
-  console.log(averages.US);
   // Update database
   for (let key of Object.keys(averages)) {
     const update_values = {
