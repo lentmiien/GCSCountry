@@ -46,11 +46,13 @@ function Available(num, current_avg, overall_avg) {
 function ChangeSearch() {
   let search = document.getElementById('search').value.toUpperCase();
   const output = [];
+  let tracking_number = '';
 
   // Do a tracking lookup
   database_tracking.forEach((dt) => {
     if (dt.tracking == search) {
       search = dt.country;
+      tracking_number = dt.tracking;
     }
   });
 
@@ -103,6 +105,7 @@ function ChangeSearch() {
         };
         document.getElementById('output').innerHTML = `
                 <h3>${output[i].country_name} (${output[i].country_code})</h3>
+                ${tracking_number.length > 0 ? '<p>' + tracking_number + '</p>' : ''}
                 <table class="table table-dark table-striped">
                     <thead>
                         <tr>
@@ -116,72 +119,110 @@ function ChangeSearch() {
                         <tr>
                             <th span="row">EMS</th>
                             <td><span class="${format.ems.class}" title="${format.ems.title}">${format.ems.text}</span></td>
-                            <td>${Math.round(10 * output[i].ems_averagetime) / 10} days <span class="${
+                            <td>${
+                              output[i].ems_averagetime > 0 ? Math.round(10 * output[i].ems_averagetime) / 10 : '--'
+                            } days <span class="${
           Math.round(10 * output[i].ems_averagetime) / 10 - output[i].ems_totalaveragetime < 0 ? 'fast' : 'slow'
         }" title="Overall average shipping time: ${output[i].ems_totalaveragetime} days">(${
-          Math.round(10 * (output[i].ems_averagetime - output[i].ems_totalaveragetime)) / 10
+          output[i].ems_averagetime > 0 ? Math.round(10 * (output[i].ems_averagetime - output[i].ems_totalaveragetime)) / 10 : '--'
         } days)</span></td>
-                            <td>${new Date(output[i].ems_lastsucessfullyshipped).toDateString()}</td>
+                            <td>${
+                              output[i].ems_lastsucessfullyshipped > 0 ? new Date(output[i].ems_lastsucessfullyshipped).toDateString() : ''
+                            }</td>
                         </tr>
                         <tr>
                             <th span="row">ASP</th>
                             <td><span class="${format.airsp.class}" title="${format.airsp.title}">${format.airsp.text}</span></td>
-                            <td>${Math.round(10 * output[i].airsp_averagetime) / 10} days <span class="${
+                            <td>${
+                              output[i].airsp_averagetime > 0 ? Math.round(10 * output[i].airsp_averagetime) / 10 : '--'
+                            } days <span class="${
           Math.round(10 * output[i].airsp_averagetime) / 10 - output[i].airsp_totalaveragetime < 0 ? 'fast' : 'slow'
         }" title="Overall average shipping time: ${output[i].airsp_totalaveragetime} days">(${
-          Math.round(10 * (output[i].airsp_averagetime - output[i].airsp_totalaveragetime)) / 10
+          output[i].airsp_averagetime > 0 ? Math.round(10 * (output[i].airsp_averagetime - output[i].airsp_totalaveragetime)) / 10 : '--'
         } days)</span></td>
-                            <td>${new Date(output[i].airsp_lastsucessfullyshipped).toDateString()}</td>
+                            <td>${
+                              output[i].airsp_lastsucessfullyshipped > 0
+                                ? new Date(output[i].airsp_lastsucessfullyshipped).toDateString()
+                                : ''
+                            }</td>
                         </tr>
                         <tr>
                             <th span="row">SAL Reg.</th>
                             <td><span class="${format.salspr.class}" title="${format.salspr.title}">${format.salspr.text}</span></td>
-                            <td>${Math.round(10 * output[i].salspr_averagetime) / 10} days <span class="${
+                            <td>${
+                              output[i].salspr_averagetime > 0 ? Math.round(10 * output[i].salspr_averagetime) / 10 : '--'
+                            } days <span class="${
           Math.round(10 * output[i].salspr_averagetime) / 10 - output[i].salspr_totalaveragetime < 0 ? 'fast' : 'slow'
         }" title="Overall average shipping time: ${output[i].salspr_totalaveragetime} days">(${
-          Math.round(10 * (output[i].salspr_averagetime - output[i].salspr_totalaveragetime)) / 10
+          output[i].salspr_averagetime > 0 ? Math.round(10 * (output[i].salspr_averagetime - output[i].salspr_totalaveragetime)) / 10 : '--'
         } days)</span></td>
-                            <td>${new Date(output[i].salspr_lastsucessfullyshipped).toDateString()}</td>
+                            <td>${
+                              output[i].salspr_lastsucessfullyshipped > 0
+                                ? new Date(output[i].salspr_lastsucessfullyshipped).toDateString()
+                                : ''
+                            }</td>
                         </tr>
                         <tr>
                             <th span="row">SAL Unreg.</th>
                             <td><span class="${format.salspu.class}" title="${format.salspu.title}">${format.salspu.text}</span></td>
-                            <td>${Math.round(10 * output[i].salspu_averagetime) / 10} days <span class="${
+                            <td>${
+                              output[i].salspu_averagetime > 0 ? Math.round(10 * output[i].salspu_averagetime) / 10 : '--'
+                            } days <span class="${
           Math.round(10 * output[i].salspu_averagetime) / 10 - output[i].salspu_totalaveragetime < 0 ? 'fast' : 'slow'
         }" title="Overall average shipping time: ${output[i].salspu_totalaveragetime} days">(${
-          Math.round(10 * (output[i].salspu_averagetime - output[i].salspu_totalaveragetime)) / 10
+          output[i].salspu_averagetime > 0 ? Math.round(10 * (output[i].salspu_averagetime - output[i].salspu_totalaveragetime)) / 10 : '--'
         } days)</span></td>
-                            <td>${new Date(output[i].salspu_lastsucessfullyshipped).toDateString()}</td>
+                            <td>${
+                              output[i].salspu_lastsucessfullyshipped > 0
+                                ? new Date(output[i].salspu_lastsucessfullyshipped).toDateString()
+                                : ''
+                            }</td>
                         </tr>
                         <tr>
                             <th span="row">SAL Parcel</th>
                             <td><span class="${format.salp.class}" title="${format.salp.title}">${format.salp.text}</span></td>
-                            <td>${Math.round(10 * output[i].salp_averagetime) / 10} days <span class="${
+                            <td>${
+                              output[i].salp_averagetime > 0 ? Math.round(10 * output[i].salp_averagetime) / 10 : '--'
+                            } days <span class="${
           Math.round(10 * output[i].salp_averagetime) / 10 - output[i].salp_totalaveragetime < 0 ? 'fast' : 'slow'
         }" title="Overall average shipping time: ${output[i].salp_totalaveragetime} days">(${
-          Math.round(10 * (output[i].salp_averagetime - output[i].salp_totalaveragetime)) / 10
+          output[i].salp_averagetime > 0 ? Math.round(10 * (output[i].salp_averagetime - output[i].salp_totalaveragetime)) / 10 : '--'
         } days)</span></td>
-                            <td>${new Date(output[i].salp_lastsucessfullyshipped).toDateString()}</td>
+                            <td>${
+                              output[i].salp_lastsucessfullyshipped > 0
+                                ? new Date(output[i].salp_lastsucessfullyshipped).toDateString()
+                                : ''
+                            }</td>
                         </tr>
                         <tr>
                             <th span="row">DHL</th>
                             <td><span class="${format.dhl.class}" title="${format.dhl.title}">${format.dhl.text}</span></td>
-                            <td>${Math.round(10 * output[i].dhl_averagetime) / 10} days <span class="${
+                            <td>${
+                              output[i].dhl_averagetime > 0 ? Math.round(10 * output[i].dhl_averagetime) / 10 : '--'
+                            } days <span class="${
           Math.round(10 * output[i].dhl_averagetime) / 10 - output[i].dhl_totalaveragetime < 0 ? 'fast' : 'slow'
         }" title="Overall average shipping time: ${output[i].dhl_totalaveragetime} days">(${
-          Math.round(10 * (output[i].dhl_averagetime - output[i].dhl_totalaveragetime)) / 10
+          output[i].dhl_averagetime > 0 ? Math.round(10 * (output[i].dhl_averagetime - output[i].dhl_totalaveragetime)) / 10 : '--'
         } days)</span></td>
-                            <td>${new Date(output[i].dhl_lastsucessfullyshipped).toDateString()}</td>
+                            <td>${
+                              output[i].dhl_lastsucessfullyshipped > 0 ? new Date(output[i].dhl_lastsucessfullyshipped).toDateString() : ''
+                            }</td>
                         </tr>
                         <tr>
                             <th span="row">Air Parcel</th>
                             <td><span class="${format.airp.class}" title="${format.airp.title}">${format.airp.text}</span></td>
-                            <td>${Math.round(10 * output[i].airp_averagetime) / 10} days <span class="${
+                            <td>${
+                              output[i].airp_averagetime > 0 ? Math.round(10 * output[i].airp_averagetime) / 10 : '--'
+                            } days <span class="${
           Math.round(10 * output[i].airp_averagetime) / 10 - output[i].airp_totalaveragetime < 0 ? 'fast' : 'slow'
         }" title="Overall average shipping time: ${output[i].airp_totalaveragetime} days">(${
-          Math.round(10 * (output[i].airp_averagetime - output[i].airp_totalaveragetime)) / 10
+          output[i].airp_averagetime > 0 ? Math.round(10 * (output[i].airp_averagetime - output[i].airp_totalaveragetime)) / 10 : '--'
         } days)</span></td>
-                            <td>${new Date(output[i].airp_lastsucessfullyshipped).toDateString()}</td>
+                            <td>${
+                              output[i].airp_lastsucessfullyshipped > 0
+                                ? new Date(output[i].airp_lastsucessfullyshipped).toDateString()
+                                : ''
+                            }</td>
                         </tr>
                     </tbody>
                 </table>

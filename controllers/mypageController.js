@@ -58,7 +58,7 @@ exports.recalculate = async (req, res) => {
   });
 
   // Last 2 weeks
-  const l2w = Date.now() - 1000 * 60 * 60 * 24 * 14;
+  const l2w = Date.now() - 1209600000;
 
   // Calculate averages
   const unknown_countries = [];
@@ -138,6 +138,7 @@ exports.recalculate = async (req, res) => {
     }
   });
 
+  console.log(averages.US);
   // Update database
   for (let key of Object.keys(averages)) {
     const update_values = {
