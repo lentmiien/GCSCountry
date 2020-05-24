@@ -23,20 +23,21 @@ function Available(num, current_avg, overall_avg) {
         }x the normal average shipping time.`,
       };
     } else {
-      return { text: 'Available', class: 'available', title: 'Available and no large delays.' };
+      return { text: 'Available', class: 'available', title: 'Available, with no or very small delays.' };
     }
   } else if (num == 2) {
     return {
       text: 'Suspended',
       class: 'suspended',
-      title: 'This shipping method is temporarilly unavailable,\nand previously shipped packages may be largely delayed.',
+      title:
+        'Orders will be put on hold for shipment until the shipping method becomes available again, previously shipped packages may be largely delayed.',
     };
   } else if (num == 3) {
     return {
       text: 'Blocked',
       class: 'blocked',
       title:
-        'Permanently suspended, unlikely to become available again within any forseeable future.\n*Customers can NOT select this shipping method.',
+        'Suspended indefinitely, unlikely to become available again within any forseeable future.\n*Customers can NOT select this shipping method.',
     };
   } else {
     return { text: `Unknown(${num})`, class: 'unknown', title: 'Unknown status, contact Lennart!' };
