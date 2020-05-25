@@ -135,7 +135,15 @@ exports.recalculate = async (req, res) => {
         }
       }
     } else {
-      unknown_countries.push(t.country);
+      let new_country = true;
+      for (let ci = 0; ci < unknown_countries.length && new_country; ci++) {
+        if (unknown_countries[ci] == t.country) {
+          new_country = false;
+        }
+      }
+      if (new_country) {
+        unknown_countries.push(t.country);
+      }
     }
   });
 
