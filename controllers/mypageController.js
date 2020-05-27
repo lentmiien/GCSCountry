@@ -132,6 +132,40 @@ exports.recalculate = async (req, res) => {
           if (t.shippeddate > averages[cc].ems_shippeddate) {
             averages[cc].ems_shippeddate = t.shippeddate;
           }
+        } else if (t.tracking.indexOf('RM') == 0) {
+          // TEMPORARY: do not know which so add to both
+          if (t.delivereddate > l2w) {
+            averages[cc].airsp_2week_cnt++;
+            averages[cc].salspr_2week_cnt++;
+            averages[cc].airsp_2week_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+            averages[cc].salspr_2week_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+          }
+          averages[cc].airsp_cnt++;
+          averages[cc].salspr_cnt++;
+          averages[cc].airsp_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+          averages[cc].salspr_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+
+          if (t.shippeddate > averages[cc].airsp_shippeddate) {
+            averages[cc].airsp_shippeddate = t.shippeddate;
+            averages[cc].salspr_shippeddate = t.shippeddate;
+          }
+        } else if (t.tracking.indexOf('CC') == 0) {
+          // TEMPORARY: do not know which so add to both
+          if (t.delivereddate > l2w) {
+            averages[cc].airp_2week_cnt++;
+            averages[cc].salp_2week_cnt++;
+            averages[cc].airp_2week_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+            averages[cc].salp_2week_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+          }
+          averages[cc].airp_cnt++;
+          averages[cc].salp_cnt++;
+          averages[cc].airp_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+          averages[cc].salp_days += (t.delivereddate - t.shippeddate) / (1000 * 60 * 60 * 24);
+
+          if (t.shippeddate > averages[cc].airp_shippeddate) {
+            averages[cc].airp_shippeddate = t.shippeddate;
+            averages[cc].salp_shippeddate = t.shippeddate;
+          }
         }
       }
     } else {
