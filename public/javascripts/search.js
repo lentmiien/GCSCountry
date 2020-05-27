@@ -16,7 +16,7 @@ function Available(num, current_avg, overall_avg) {
   } else if (num == 1) {
     if (current_avg > overall_average * 1.5) {
       return {
-        text: `${Math.round((10 * current_avg) / overall_average) / 10}x delay`,
+        text: `Available, ${Math.round((10 * current_avg) / overall_average) / 10}x delay`,
         class: 'delays',
         title: `On average, the last 2 weeks, shipments has been delayed about ${
           Math.round((10 * current_avg) / overall_average) / 10
@@ -26,8 +26,12 @@ function Available(num, current_avg, overall_avg) {
       return { text: 'Available', class: 'available', title: 'Available, with no or very small delays.' };
     }
   } else if (num == 2) {
+    let delay_str = '';
+    if (current_avg > overall_average * 1.5) {
+      delay_str = `, ${Math.round((10 * current_avg) / overall_average) / 10}x delay`;
+    }
     return {
-      text: 'Suspended',
+      text: 'Suspended' + delay_str,
       class: 'suspended',
       title:
         'Orders will be put on hold for shipment until the shipping method becomes available again, previously shipped packages may be largely delayed.',
