@@ -11,30 +11,29 @@ function Available(num, current_avg, overall_avg) {
   if (overall_avg == 0) {
     overall_average = 1;
   }
+
+  // Calculate delays
+  const delay = {};
+  if (current_avg > overall_average * 1.5) {
+    delay['text'] = `${Math.round((10 * current_avg) / overall_average) / 10}x delay`;
+    delay['class'] = 'delays';
+    delay['title'] = `On average, the last 2 weeks, shipments has been delayed about ${
+      Math.round((10 * current_avg) / overall_average) / 10
+    }x the normal average shipping time.`;
+  }
+
+  // Determine current status and return data
   if (num == 0) {
-    return { text: 'Unavailable', class: 'unavailable', title: 'This shipping method is not provided for this country.' };
+    return { text: 'Unavailable', class: 'unavailable', title: 'This shipping method is not provided for this country.', delay };
   } else if (num == 1) {
-    if (current_avg > overall_average * 1.5) {
-      return {
-        text: `Available, ${Math.round((10 * current_avg) / overall_average) / 10}x delay`,
-        class: 'delays',
-        title: `On average, the last 2 weeks, shipments has been delayed about ${
-          Math.round((10 * current_avg) / overall_average) / 10
-        }x the normal average shipping time.`,
-      };
-    } else {
-      return { text: 'Available', class: 'available', title: 'Available, with no or very small delays.' };
-    }
+    return { text: 'Available', class: 'available', title: 'Available, shipping is possible.', delay };
   } else if (num == 2) {
-    let delay_str = '';
-    if (current_avg > overall_average * 1.5) {
-      delay_str = `, ${Math.round((10 * current_avg) / overall_average) / 10}x delay`;
-    }
     return {
-      text: 'Suspended' + delay_str,
+      text: 'Suspended',
       class: 'suspended',
       title:
         'Orders will be put on hold for shipment until the shipping method becomes available again, previously shipped packages may be largely delayed.',
+      delay
     };
   } else if (num == 3) {
     return {
@@ -42,9 +41,10 @@ function Available(num, current_avg, overall_avg) {
       class: 'blocked',
       title:
         'Suspended indefinitely, unlikely to become available again within any forseeable future.\n*Customers can NOT select this shipping method.',
+      delay
     };
   } else {
-    return { text: `Unknown(${num})`, class: 'unknown', title: 'Unknown status, contact Lennart!' };
+    return { text: `Unknown(${num})`, class: 'unknown', title: 'Unknown status, contact Lennart!', delay };
   }
 }
 
@@ -115,6 +115,11 @@ function ChangeSearch() {
         document.getElementById(
           'ems_available'
         ).innerHTML = `<span class="${format.ems.class}" title="${format.ems.title}">${format.ems.text}</span>`;
+        if (format.ems.delay.text) {
+          document.getElementById(
+            'ems_available'
+          ).innerHTML += `<span class="${format.ems.delay.class}" title="${format.ems.delay.title}">${format.ems.delay.text}</span>`;
+        }
         document.getElementById('ems_average').innerHTML = `${
           output[i].ems_averagetime > 0 ? Math.round(10 * output[i].ems_averagetime) / 10 : '--'
         } days <span class="${
@@ -130,6 +135,11 @@ function ChangeSearch() {
         document.getElementById(
           'airsp_available'
         ).innerHTML = `<span class="${format.airsp.class}" title="${format.airsp.title}">${format.airsp.text}</span>`;
+        if (format.airsp.delay.text) {
+          document.getElementById(
+            'airsp_available'
+          ).innerHTML += `<span class="${format.airsp.delay.class}" title="${format.airsp.delay.title}">${format.airsp.delay.text}</span>`;
+        }
         document.getElementById('airsp_average').innerHTML = `${
           output[i].airsp_averagetime > 0 ? Math.round(10 * output[i].airsp_averagetime) / 10 : '--'
         } days <span class="${
@@ -145,6 +155,11 @@ function ChangeSearch() {
         document.getElementById(
           'salspr_available'
         ).innerHTML = `<span class="${format.salspr.class}" title="${format.salspr.title}">${format.salspr.text}</span>`;
+        if (format.salspr.delay.text) {
+          document.getElementById(
+            'salspr_available'
+          ).innerHTML += `<span class="${format.salspr.delay.class}" title="${format.salspr.delay.title}">${format.salspr.delay.text}</span>`;
+        }
         document.getElementById('salspr_average').innerHTML = `${
           output[i].salspr_averagetime > 0 ? Math.round(10 * output[i].salspr_averagetime) / 10 : '--'
         } days <span class="${
@@ -165,6 +180,11 @@ function ChangeSearch() {
         document.getElementById(
           'salp_available'
         ).innerHTML = `<span class="${format.salp.class}" title="${format.salp.title}">${format.salp.text}</span>`;
+        if (format.salp.delay.text) {
+          document.getElementById(
+            'salp_available'
+          ).innerHTML += `<span class="${format.salp.delay.class}" title="${format.salp.delay.title}">${format.salp.delay.text}</span>`;
+        }
         document.getElementById('salp_average').innerHTML = `${
           output[i].salp_averagetime > 0 ? Math.round(10 * output[i].salp_averagetime) / 10 : '--'
         } days <span class="${
@@ -180,6 +200,11 @@ function ChangeSearch() {
         document.getElementById(
           'dhl_available'
         ).innerHTML = `<span class="${format.dhl.class}" title="${format.dhl.title}">${format.dhl.text}</span>`;
+        if (format.dhl.delay.text) {
+          document.getElementById(
+            'dhl_available'
+          ).innerHTML += `<span class="${format.dhl.delay.class}" title="${format.dhl.delay.title}">${format.dhl.delay.text}</span>`;
+        }
         document.getElementById('dhl_average').innerHTML = `${
           output[i].dhl_averagetime > 0 ? Math.round(10 * output[i].dhl_averagetime) / 10 : '--'
         } days <span class="${
@@ -195,6 +220,11 @@ function ChangeSearch() {
         document.getElementById(
           'airp_available'
         ).innerHTML = `<span class="${format.airp.class}" title="${format.airp.title}">${format.airp.text}</span>`;
+        if (format.airp.delay.text) {
+          document.getElementById(
+            'airp_available'
+          ).innerHTML += `<span class="${format.airp.delay.class}" title="${format.airp.delay.title}">${format.airp.delay.text}</span>`;
+        }
         document.getElementById('airp_average').innerHTML = `${
           output[i].airp_averagetime > 0 ? Math.round(10 * output[i].airp_averagetime) / 10 : '--'
         } days <span class="${
