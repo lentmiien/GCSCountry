@@ -26,11 +26,13 @@ const statuses = [
   }
 ];
 
+// Trigger a search from script
 function FillIn(text) {
   document.getElementById('search').value = text;
   ChangeSearch();
 }
 
+// Get the available data
 function Available(num, current_avg, overall_avg) {
   // To prevent division with 0
   let overall_average = overall_avg;
@@ -61,6 +63,7 @@ function Available(num, current_avg, overall_avg) {
   }
 }
 
+// Perform a search
 function ChangeSearch() {
   let search = document.getElementById('search').value.toUpperCase();
   const output = [];
@@ -108,9 +111,12 @@ function ChangeSearch() {
   document.getElementById('auto').innerHTML = '';
   for (let i = 0; i < 5; i++) {
     if (i < output.length) {
+      // Show auto-complete term
       document.getElementById('auto').innerHTML += `
             <button class="btn btn-link" onclick="FillIn('${output[i].country_name}')">${output[i].country_name} {${i + 1}}</button>
             `;
+      
+      // If at active entry, display data
       if (i + 1 == index) {
         const format = {
           ems: Available(output[i].ems_available, output[i].ems_averagetime, output[i].ems_totalaveragetime),
@@ -141,8 +147,6 @@ function ChangeSearch() {
           }`;
         }
       }
-    } else {
-      document.getElementById(`num${i + 1}`).innerText = '';
     }
   }
 }
