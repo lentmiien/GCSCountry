@@ -118,6 +118,7 @@ function ChangeSearch() {
       
       // If at active entry, display data
       if (i + 1 == index) {
+        document.getElementById('link').innerHTML = `<a class="btn btn-link" href="/mypage/countrygraph/${output[i].country_code}">Show graphs</a>`;
         const format = {
           ems: Available(output[i].ems_available, output[i].ems_averagetime, output[i].ems_totalaveragetime),
           airsp: Available(output[i].airsp_available, output[i].airsp_averagetime, output[i].airsp_totalaveragetime),

@@ -254,12 +254,12 @@ exports.country_graphs = (req, res) => {
 
   // Generate graph data array
   const graphdata = [];
-  const tendays = 1000 * 60 * 60 * 24 * 10;
+  const sevendays = 1000 * 60 * 60 * 24 * 7;
   const now = Date.now();
   for (let i = 0; i < 52; i++) {
     graphdata.unshift({
-      start: now - tendays * (i + 1),
-      end: now - tendays * i,
+      start: now - sevendays * (i + 1),
+      end: now - sevendays * i,
       ems_cnt: 0,
       ems_days: 0,
       airsp_cnt: 0,
