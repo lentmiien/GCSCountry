@@ -228,7 +228,7 @@ exports.addcl = (req, res) => {
   res.json({ status: 'OK' });
 };
 
-exports.country_graphs = (req, res) => {
+exports.country_graphs = async (req, res) => {
   const countrylist = await Countrylist.findAll();
   const countrylist_base = countrylist.filter((a) => a.baseentry);
   const trackings = await Tracking.findAll({ where: { delivereddate: { [Op.gt]: 1 } } });
@@ -257,7 +257,7 @@ exports.country_graphs = (req, res) => {
   const sevendays = 1000 * 60 * 60 * 24 * 7;
   const now = Date.now();
   for (let i = 0; i < 52; i++) {
-    graphdata.unshift({
+    graphdata.push({
       start: now - sevendays * (i + 1),
       end: now - sevendays * i,
       ems_cnt: 0,
