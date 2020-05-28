@@ -12,11 +12,12 @@ let plotdata = data.map((entry, index) => {
 }).filter(entry => entry.yval > 0);
 
 ems_graph_area
-  .data(plotdata)
-  .enter()
-  .append(rect)
-  .attr('x', d => d.xval * 10)
-  .attr('y', d => 300 - d.yval)
-  .attr('width', 9)
-  .attr('height', d => d.yval)
-  .attr('fill', 'green')
+  .append('path')
+  .datum(plotdata)
+  .attr('fill', 'none')
+  .attr('stroke', 'steelblue')
+  .attr('stroke-width', 3)
+  .attr('d', d3.line()
+    .x(d => d.xval * 10)
+    .y(d => 300 - d.yval)
+  );
