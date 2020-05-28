@@ -78,11 +78,3 @@ pre {
 .slow {
   color: red;
 }
-
-/* SVG styling */
-
-.test_svg {
-  width: 520px;
-  height: 300px;
-  fill: blueviolet;
-}
