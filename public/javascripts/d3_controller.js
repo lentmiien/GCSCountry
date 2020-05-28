@@ -59,8 +59,8 @@ function GenerateGraph(prefix, title) {
 }
 
 GenerateGraph('ems', 'EMS');
-GenerateGraph('ems', 'Air Small Packet');
-GenerateGraph('ems', 'SAL Registered');
-GenerateGraph('ems', 'SAL Parcel');
-GenerateGraph('ems', 'DHL');
-GenerateGraph('ems', 'Air Parcel');
+GenerateGraph('airsp', 'Air Small Packet');
+GenerateGraph('salspr', 'SAL Registered');
+GenerateGraph('salp', 'SAL Parcel');
+GenerateGraph('dhl', 'DHL');
+GenerateGraph('airp', 'Air Parcel');
