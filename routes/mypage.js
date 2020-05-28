@@ -18,5 +18,7 @@ router.get('/recalculate', controller.recalculate);
 
 router.post('/addcl', controller.addcl);
 
+router.get('/countrygraph/:countrycode', controller.country_graphs);
+
 // Export router
 module.exports = router;
