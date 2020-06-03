@@ -9,10 +9,10 @@ const bcrypt = require('bcrypt');
 const users = [
   {
     id: 0,
-    username: 'Lennart',
+    username: 'amiami',
     role: 'admin',
-    password: '$2b$10$6BFG0Ek8nJdwwN3I00xg9ujVqcYakOg9SjdxNhgJxvPpoq.XH3xIG' // 123
-  }
+    password: '$2b$10$6BFG0Ek8nJdwwN3I00xg9ujVqcYakOg9SjdxNhgJxvPpoq.XH3xIG', // 123
+  },
 ];
 
 // Export variable
