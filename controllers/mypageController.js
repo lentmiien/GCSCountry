@@ -184,30 +184,37 @@ exports.recalculate = async (req, res) => {
   // Update database
   for (let key of Object.keys(averages)) {
     const update_values = {
+      ems_small_sample: averages[key].ems_2week_cnt > 0 && averages[key].ems_2week_cnt < 5,
       ems_averagetime: averages[key].ems_2week_days / (averages[key].ems_2week_cnt > 0 ? averages[key].ems_2week_cnt : 1),
       ems_totalaveragetime: averages[key].ems_days / (averages[key].ems_cnt > 0 ? averages[key].ems_cnt : 1),
       ems_lastsucessfullyshipped: averages[key].ems_shippeddate,
 
+      airsp_small_sample: averages[key].airsp_2week_cnt > 0 && averages[key].airsp_2week_cnt < 5,
       airsp_averagetime: averages[key].airsp_2week_days / (averages[key].airsp_2week_cnt > 0 ? averages[key].airsp_2week_cnt : 1),
       airsp_totalaveragetime: averages[key].airsp_days / (averages[key].airsp_cnt > 0 ? averages[key].airsp_cnt : 1),
       airsp_lastsucessfullyshipped: averages[key].airsp_shippeddate,
 
+      salspr_small_sample: averages[key].salspr_2week_cnt > 0 && averages[key].salspr_2week_cnt < 5,
       salspr_averagetime: averages[key].salspr_2week_days / (averages[key].salspr_2week_cnt > 0 ? averages[key].salspr_2week_cnt : 1),
       salspr_totalaveragetime: averages[key].salspr_days / (averages[key].salspr_cnt > 0 ? averages[key].salspr_cnt : 1),
       salspr_lastsucessfullyshipped: averages[key].salspr_shippeddate,
 
+      salspu_small_sample: averages[key].salspu_2week_cnt > 0 && averages[key].salspu_2week_cnt < 5,
       salspu_averagetime: averages[key].salspu_2week_days / (averages[key].salspu_2week_cnt > 0 ? averages[key].salspu_2week_cnt : 1),
       salspu_totalaveragetime: averages[key].salspu_days / (averages[key].salspu_cnt > 0 ? averages[key].salspu_cnt : 1),
       salspu_lastsucessfullyshipped: averages[key].salspu_shippeddate,
 
+      salp_small_sample: averages[key].salp_2week_cnt > 0 && averages[key].salp_2week_cnt < 5,
       salp_averagetime: averages[key].salp_2week_days / (averages[key].salp_2week_cnt > 0 ? averages[key].salp_2week_cnt : 1),
       salp_totalaveragetime: averages[key].salp_days / (averages[key].salp_cnt > 0 ? averages[key].salp_cnt : 1),
       salp_lastsucessfullyshipped: averages[key].salp_shippeddate,
 
+      dhl_small_sample: averages[key].dhl_2week_cnt > 0 && averages[key].dhl_2week_cnt < 5,
       dhl_averagetime: averages[key].dhl_2week_days / (averages[key].dhl_2week_cnt > 0 ? averages[key].dhl_2week_cnt : 1),
       dhl_totalaveragetime: averages[key].dhl_days / (averages[key].dhl_cnt > 0 ? averages[key].dhl_cnt : 1),
       dhl_lastsucessfullyshipped: averages[key].dhl_shippeddate,
 
+      airp_small_sample: averages[key].airp_2week_cnt > 0 && averages[key].airp_2week_cnt < 5,
       airp_averagetime: averages[key].airp_2week_days / (averages[key].airp_2week_cnt > 0 ? averages[key].airp_2week_cnt : 1),
       airp_totalaveragetime: averages[key].airp_days / (averages[key].airp_cnt > 0 ? averages[key].airp_cnt : 1),
       airp_lastsucessfullyshipped: averages[key].airp_shippeddate,

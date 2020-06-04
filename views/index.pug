@@ -22,3 +22,5 @@ block content
                 span.delays= `${entry.delay}x`
               else
                 span.available= `${entry.delay}x`
+              if entry.small_sample
+                b(style="color:red;") △

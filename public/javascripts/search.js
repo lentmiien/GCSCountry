@@ -136,6 +136,9 @@ function ChangeSearch() {
           if (format[key].delay.text) {
             document.getElementById(`${key}_available`).innerHTML += `<span class="${format[key].delay.class}" title="${format[key].delay.title}">${format[key].delay.text}</span>`;
           }
+          if (output[i][`${key}_small_sample`]) {
+            document.getElementById(`${key}_available`).innerHTML += `<b style="color:red;">△</b>`;
+          }
           document.getElementById(`${key}_average`).innerHTML = `${
             output[i][`${key}_averagetime`] > 0 ? Math.round(10 * output[i][`${key}_averagetime`]) / 10 : '--'
           } days <span class="${
